@@ -195,7 +195,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 message.setText("Message from " + plantId + ":\n \n" +
                         "\uD83C\uDFCA\u200D♀\uFE0F I'm drowning in juices. Help me! \n\n" +
                         "Actual humidity: " + p.getSoil_humidity() + "\n" + "Max humidity: " +
-                        user.getMax_soil_humidity());
+                        user.getMin_soil_humidity());
                 execute(message);
 
                 /*
