@@ -67,18 +67,6 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 throw new RuntimeException(e);
             }
             return;
-
-        }
-
-        if(messageTextReceived.equals("/stop")){
-            message.setText("Realtime notifications stopped! See you soon!");
-            try {
-                execute(message);
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            }
-            executorService.shutdown();
-            return;
         }
 
         // Get user
@@ -127,13 +115,11 @@ public class TelegramBoot extends TelegramLongPollingBot {
     }
 
     private void observePlantValue(String plantId, long chatId, UserDTO user) throws Exception {
-        System.out.println("Created thread for: " + plantId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        // Código para observar el valor en Firestore para la planta con plantId
-        DocumentReference plantDocRef = firestore.collection("plantes").document("P_01_EPS");
         while (true) {
+            System.out.println("Loop Started for " + plantId);
             Plant p = plantServiceAPI.get(plantId);
 
             if (user.getMax_air_humidity() < p.getAir_humidity()) {
@@ -142,6 +128,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         user.getMax_air_humidity());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -149,10 +136,13 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 sendDocument.setDocument(inputFile);
 
                 try {
+                    System.out.println("Gif before send");
                     execute(sendDocument);
+                    System.out.println("Gif sent");
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                */
             }
 
             if (user.getMin_air_humidity() > p.getAir_humidity()) {
@@ -162,6 +152,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         user.getMin_air_humidity());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -169,10 +160,13 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 sendDocument.setDocument(inputFile);
 
                 try {
+                    System.out.println("Gif before send");
                     execute(sendDocument);
+                    System.out.println("Gif sent");
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                 */
             }
 
             if (user.getMax_soil_humidity() < p.getSoil_humidity()) {
@@ -182,6 +176,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         user.getMax_soil_humidity());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -193,6 +188,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                 */
             }
 
             if (user.getMin_soil_humidity() > p.getSoil_humidity()) {
@@ -202,6 +198,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         user.getMax_soil_humidity());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -213,6 +210,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                 */
             }
 
             if (user.getMax_temperature() < p.getTemperature()) {
@@ -220,6 +218,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         "Actual temp: " + p.getTemperature() + "\n" + "Max temp: " + user.getMax_temperature());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -231,6 +230,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                 */
             }
 
             if (user.getMin_temperature() > p.getTemperature()) {
@@ -240,6 +240,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                         user.getMin_temperature());
                 execute(message);
 
+                /*
                 // Send gif
                 SendDocument sendDocument = new SendDocument();
                 sendDocument.setChatId(String.valueOf(chatId));
@@ -251,6 +252,7 @@ public class TelegramBoot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+                 */
             }
 
             // Espera 5 segundos
