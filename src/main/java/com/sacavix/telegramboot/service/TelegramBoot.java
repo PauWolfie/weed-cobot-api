@@ -24,13 +24,10 @@ import java.util.concurrent.Executors;
 
 @Service
 public class TelegramBoot extends TelegramLongPollingBot {
-    // Firestore
-    private Firestore firestore;
     private ExecutorService executorService;
 
     @PostConstruct
     public void init() {
-        firestore = FirestoreOptions.getDefaultInstance().getService();
         executorService = Executors.newFixedThreadPool(5);
     }
 
