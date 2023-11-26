@@ -70,7 +70,6 @@ public class TelegramBoot extends TelegramLongPollingBot {
 
         }
 
-
         if(messageTextReceived.equals("/stop")){
             message.setText("Realtime notifications stopped! See you soon!");
             try {
