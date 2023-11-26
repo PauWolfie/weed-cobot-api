@@ -53,6 +53,20 @@ public abstract class GenericServiceImpl<I, O> implements GenericServiceAPI<I, O
 	}
 
 	@Override
+	public O getByChatId(String id) throws Exception {
+		O result = null;
+		ApiFuture<QuerySnapshot> query = getCollection().whereEqualTo("chatId", id)
+				.get();
+		List<QueryDocumentSnapshot> documents = query.get().getDocuments();
+		for (QueryDocumentSnapshot doc : documents) {
+			O object = doc.toObject(clazz);
+			PropertyUtils.setProperty(object, "id", doc.getId());
+			result = object;
+		}
+		return result;
+	}
+
+	@Override
 	public List<O> getAll() throws Exception {
 		List<O> result = new ArrayList<O>();
 		ApiFuture<QuerySnapshot> query = getCollection().get();
